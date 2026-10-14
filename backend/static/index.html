@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Waste Management System | Sustainable Electronics Recycling</title>
+  <link rel="stylesheet" href="/static/css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22%22><text y=%2226%22 font-size=%2226%22>♻️</text></svg>">
+</head>
+<body>
+
+  <!-- Top Sticky Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#home" class="brand-logo" onclick="switchTab('home')">
+        <div class="brand-icon">♻️</div>
+        <span>EcoCycle <span class="brand-tag">E-Waste Portal</span></span>
+      </a>
+
+      <ul class="nav-links" id="navLinksList" style="display: none;">
+        <li><a class="nav-link active" data-tab="home" onclick="switchTab('home')">Home</a></li>
+        <li><a class="nav-link" data-tab="dashboard" id="navDashboardLink" onclick="switchTab('dashboard')">Dashboard</a></li>
+        <li><a class="nav-link" data-tab="pickup" onclick="switchTab('pickup')">Schedule Pickup</a></li>
+        <li><a class="nav-link" data-tab="requests" id="navRequestsLink" onclick="switchTab('requests')">Manage Requests</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <!-- Guest Login Button -->
+        <button class="btn btn-secondary" id="navLoginBtn" onclick="switchTab('login')">
+          🔑 Sign In
+        </button>
+
+        <!-- Logged-in User Profile Pill -->
+        <div id="navUserBadge" class="user-profile-pill" style="display: none;">
+          <span id="navRoleIcon">👤</span>
+          <span id="navUserEmail" class="user-email-text">user@ewaste.com</span>
+          <span id="navRoleTag" class="user-role-badge role-user">User</span>
+          <button class="btn-logout" onclick="handleLogout()" title="Log out">
+            🚪 Logout
+          </button>
+        </div>
+
+        <!-- Admin Demo Data Tool -->
+        <button class="btn btn-demo" id="demoDataBtn" onclick="openDemoModal()" title="Optional demo data for college demonstration" style="display: none;">
+          ⚡ Demo Data
+        </button>
+
+        <button class="btn btn-primary" id="navPickupBtn" onclick="switchTab('pickup')" style="display: none;">
+          ➕ Request Pickup
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Application Wrapper -->
+  <main class="main-wrapper">
+
+    <!-- ========================================================
+         SECTION 1: LANDING PAGE
+         ======================================================== -->
+    <section id="section-home" class="tab-section">
+      <!-- Hero Banner -->
+      <div class="hero">
+        <div class="hero-content">
+          <div class="hero-pill">🌿 Eco-Friendly Tech Disposal</div>
+          <h1>Responsible E-Waste Recycling For A Greener Planet</h1>
+          <p>
+            Safely dispose of your old computers, mobile devices, batteries, and electronics. 
+            Schedule doorstep collections, prevent toxic materials from landfills, and track your recycling impact in real-time.
+          </p>
+          <div class="hero-btns">
+            <button class="btn btn-primary" onclick="switchTab('pickup')">
+              🚚 Schedule a Free Pickup
+            </button>
+            <button class="btn btn-secondary" onclick="switchTab('dashboard')">
+              📊 View Live Dashboard
+            </button>
+            <button class="btn btn-secondary" id="heroLoginBtn" onclick="switchTab('login')">
+              🔑 Sign In to Portal
+            </button>
+          </div>
+        </div>
+
+        <div class="hero-stats-card">
+          <div class="hero-metric">
+            <div class="metric-icon" style="background: #ecfdf5; color: #059669;">🛡️</div>
+            <div class="metric-info">
+              <h4>100% Certified Recycling</h4>
+              <p>Compliant with environmental safe handling</p>
+            </div>
+          </div>
+          <div class="hero-metric">
+            <div class="metric-icon" style="background: #eff6ff; color: #2563eb;">🔒</div>
+            <div class="metric-info">
+              <h4>Complete Data Sanitization</h4>
+              <p>Storage drives sanitized & shredded</p>
+            </div>
+          </div>
+          <div class="hero-metric">
+            <div class="metric-icon" style="background: #fef3c7; color: #d97706;">⚡</div>
+            <div class="metric-info">
+              <h4>Doorstep Collection</h4>
+              <p>Convenient verified pickup at your scheduled time</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Why Recycle E-Waste Section -->
+      <div class="section-title-wrap">
+        <h2 class="section-title">Why Responsible E-Waste Management Matters</h2>
+        <p class="section-subtitle">Electronics contain both precious metals that can be recycled and hazardous chemicals that damage ecosystems if neglected.</p>
+      </div>
+
+      <div class="workflow-grid">
+        <div class="workflow-card">
+          <div class="step-num">01</div>
+          <div class="workflow-icon">🧪</div>
+          <h3>Hazardous Waste Prevention</h3>
+          <p>Electronic components contain lead, mercury, and arsenic. Certified disposal ensures these heavy metals never poison local groundwater.</p>
+        </div>
+        <div class="workflow-card">
+          <div class="step-num">02</div>
+          <div class="workflow-icon">💎</div>
+          <h3>Circular Material Recovery</h3>
+          <p>Over 60 critical elements, including copper, silver, and gold, are recovered and returned directly into renewable manufacturing cycles.</p>
+        </div>
+        <div class="workflow-card">
+          <div class="step-num">03</div>
+          <div class="workflow-icon">🌱</div>
+          <h3>Carbon Footprint Reduction</h3>
+          <p>Refurbishing and material recycling consumes up to 80% less energy than mining and smelting virgin ores from raw earth.</p>
+        </div>
+      </div>
+
+      <!-- How It Works 3-Step Process -->
+      <div class="section-title-wrap">
+        <h2 class="section-title">How Our Collection System Works</h2>
+        <p class="section-subtitle">Effortless 3-step pickup pipeline designed for residences, colleges, and enterprise offices.</p>
+      </div>
+
+      <div class="workflow-grid">
+        <div class="workflow-card">
+          <div class="step-num">1</div>
+          <div class="workflow-icon">📝</div>
+          <h3>Submit Pickup Request</h3>
+          <p>Provide your item category, device quantity, condition, and select your preferred pickup date.</p>
+        </div>
+        <div class="workflow-card">
+          <div class="step-num">2</div>
+          <div class="workflow-icon">🚚</div>
+          <h3>Verified Doorstep Pickup</h3>
+          <p>Our certified collection staff visits your premises, inspects items, and issues a tracking confirmation.</p>
+        </div>
+        <div class="workflow-card">
+          <div class="step-num">3</div>
+          <div class="workflow-icon">♻️</div>
+          <h3>Dismantling & Processing</h3>
+          <p>Items are categorized for refurbishment, component recovery, or zero-landfill eco-recycling.</p>
+        </div>
+      </div>
+
+      <!-- Accepted Categories Showcase -->
+      <div class="section-title-wrap">
+        <h2 class="section-title">Accepted Electronic Categories</h2>
+        <p class="section-subtitle">We accept a wide spectrum of obsolete and malfunctioning electronics.</p>
+      </div>
+
+      <div class="categories-grid" id="acceptedCategoriesGrid">
+        <!-- Rendered via JS -->
+      </div>
+    </section>
+
+    <!-- ========================================================
+         SECTION 2: LIVE METRICS DASHBOARD (USER / ADMIN)
+         ======================================================== -->
+    <section id="section-dashboard" class="tab-section">
+      <div class="dashboard-header">
+        <div>
+          <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;">
+            <h2 id="dashboardTitle">Collection & Recycling Dashboard</h2>
+            <span id="dashboardRoleBadge" class="brand-tag">Overview</span>
+          </div>
+          <p id="dashboardSubtitle" class="text-muted" style="font-size: 0.9rem; color: var(--text-muted);">
+            Real-time statistics calculated directly from the SQLite database.
+          </p>
+        </div>
+        <button class="btn btn-secondary" onclick="loadDashboardStats()">
+          🔄 Refresh Metrics
+        </button>
+      </div>
+
+      <!-- Live Metric Cards -->
+      <div class="stats-grid">
+        <div class="stat-card total">
+          <div class="stat-info">
+            <div class="stat-label" id="labelTotal">Total Requests</div>
+            <div class="stat-val" id="statTotal">0</div>
+          </div>
+          <div class="stat-badge-icon">📦</div>
+        </div>
+
+        <div class="stat-card pending">
+          <div class="stat-info">
+            <div class="stat-label">Pending Pickup</div>
+            <div class="stat-val" id="statPending">0</div>
+          </div>
+          <div class="stat-badge-icon">⏳</div>
+        </div>
+
+        <div class="stat-card scheduled">
+          <div class="stat-info">
+            <div class="stat-label">Scheduled</div>
+            <div class="stat-val" id="statScheduled">0</div>
+          </div>
+          <div class="stat-badge-icon">📅</div>
+        </div>
+
+        <div class="stat-card collected">
+          <div class="stat-info">
+            <div class="stat-label">Collected</div>
+            <div class="stat-val" id="statCollected">0</div>
+          </div>
+          <div class="stat-badge-icon">🚚</div>
+        </div>
+
+        <div class="stat-card processed">
+          <div class="stat-info">
+            <div class="stat-label">Processed / Recycled</div>
+            <div class="stat-val" id="statProcessed">0</div>
+          </div>
+          <div class="stat-badge-icon">✅</div>
+        </div>
+      </div>
+
+      <!-- Status Progress & Category Breakdown -->
+      <div class="dashboard-splits">
+        <div class="dash-panel">
+          <h3>📊 Status Distribution</h3>
+          <div id="statusDistributionBars">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <div class="dash-panel">
+          <h3>🏷️ Items by Category</h3>
+          <div class="category-tags-list" id="categoryDistributionTags">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Submissions Mini Table -->
+      <div class="table-panel">
+        <div class="filter-bar">
+          <h3 style="font-size: 1.05rem; font-weight: 700;" id="recentActivityTitle">🕒 Recent Activity</h3>
+          <button class="btn btn-secondary btn-sm" onclick="switchTab('requests')">View All in Table →</button>
+        </div>
+        <div class="table-responsive">
+          <table class="styled-table">
+            <thead>
+              <tr>
+                <th>Tracking ID</th>
+                <th>Customer</th>
+                <th>Category & Item</th>
+                <th>Preferred Date</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="recentActivityTableBody">
+              <!-- Rendered by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         SECTION 3: SCHEDULE PICKUP FORM
+         ======================================================== -->
+    <section id="section-pickup" class="tab-section">
+      <!-- Submission Form Card -->
+      <div class="form-card" id="pickupFormCard">
+        <div class="form-header">
+          <h2><span>📋</span> Schedule an E-Waste Pickup</h2>
+          <p>Fill out the details below to request a doorstep collection for your electronic waste.</p>
+        </div>
+
+        <form id="pickupForm" novalidate onsubmit="handleFormSubmit(event)">
+          <!-- Customer Information -->
+          <div class="form-grid-3">
+            <div class="form-group" id="group-full_name">
+              <label class="form-label" for="full_name">Full Name <span class="req">*</span></label>
+              <input type="text" id="full_name" class="form-input" placeholder="e.g. Rahul Sharma" required minlength="2">
+              <div class="field-error">Please enter your full name (at least 2 letters).</div>
+            </div>
+
+            <div class="form-group" id="group-email">
+              <label class="form-label" for="email">Email Address <span class="req">*</span></label>
+              <input type="email" id="email" class="form-input" placeholder="e.g. rahul@example.com" required>
+              <div class="field-error">Please provide a valid email address.</div>
+            </div>
+
+            <div class="form-group" id="group-phone">
+              <label class="form-label" for="phone">Phone Number <span class="req">*</span></label>
+              <input type="tel" id="phone" class="form-input" placeholder="e.g. +91 9876543210" required>
+              <div class="field-error">Phone number must be at least 7 digits.</div>
+            </div>
+          </div>
+
+          <!-- Pickup Address -->
+          <div class="form-grid-3">
+            <div class="form-group" id="group-address" style="grid-column: span 1;">
+              <label class="form-label" for="address">Pickup Street Address <span class="req">*</span></label>
+              <input type="text" id="address" class="form-input" placeholder="Flat / House No., Street, Landmark" required minlength="5">
+              <div class="field-error">Street address must be at least 5 characters.</div>
+            </div>
+
+            <div class="form-group" id="group-city">
+              <label class="form-label" for="city">City <span class="req">*</span></label>
+              <input type="text" id="city" class="form-input" placeholder="e.g. Mumbai" required minlength="2">
+              <div class="field-error">Please enter your city.</div>
+            </div>
+
+            <div class="form-group" id="group-pincode">
+              <label class="form-label" for="pincode">PIN / Postal Code <span class="req">*</span></label>
+              <input type="text" id="pincode" class="form-input" placeholder="e.g. 400001" required minlength="3">
+              <div class="field-error">Enter a valid PIN or postal code.</div>
+            </div>
+          </div>
+
+          <!-- Electronic Item Specifications -->
+          <div class="form-grid-3">
+            <div class="form-group" id="group-category">
+              <label class="form-label" for="category">Category <span class="req">*</span></label>
+              <select id="category" class="form-select" required>
+                <!-- Populated dynamically -->
+              </select>
+              <div class="field-error">Please select an electronic category.</div>
+            </div>
+
+            <div class="form-group" id="group-quantity">
+              <label class="form-label" for="quantity">Quantity (Units) <span class="req">*</span></label>
+              <input type="number" id="quantity" class="form-input" value="1" min="1" max="500" required>
+              <div class="field-error">Quantity must be at least 1 unit.</div>
+            </div>
+
+            <div class="form-group" id="group-condition">
+              <label class="form-label" for="condition">Item Condition <span class="req">*</span></label>
+              <select id="condition" class="form-select" required>
+                <option value="Working">Working (Reusable / Refurbishable)</option>
+                <option value="Semi-functional" selected>Semi-functional (Repairable)</option>
+                <option value="Non-functional / Scrap">Non-functional / Scrap (Dismantle)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div class="form-group" id="group-item_description">
+            <label class="form-label" for="item_description">Device Model & Description <span class="req">*</span></label>
+            <textarea id="item_description" class="form-textarea" placeholder="e.g. Dell Inspiron 15, cracked display, missing charger" required minlength="3"></textarea>
+            <div class="field-error">Please describe the items (brand, model, condition).</div>
+          </div>
+
+          <!-- Schedule & Notes -->
+          <div class="form-grid-2">
+            <div class="form-group" id="group-preferred_date">
+              <label class="form-label" for="preferred_date">Preferred Collection Date <span class="req">*</span></label>
+              <input type="date" id="preferred_date" class="form-input" required>
+              <div class="field-error">Please choose a valid preferred pickup date.</div>
+            </div>
+
+            <div class="form-group" id="group-special_notes">
+              <label class="form-label" for="special_notes">Special Handling Notes (Optional)</label>
+              <input type="text" id="special_notes" class="form-input" placeholder="e.g. Call before coming, battery removed">
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem;">
+            <button type="reset" class="btn btn-secondary" onclick="resetValidation()">Reset Form</button>
+            <button type="submit" class="btn btn-primary" id="submitBtn">
+              <span>🚀 Submit Pickup Request</span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Success Receipt View (Shown after submission) -->
+      <div class="submit-success-card" id="submitSuccessCard">
+        <div class="success-check-icon">✓</div>
+        <h2>Pickup Request Received!</h2>
+        <p style="color: var(--text-muted); margin-top: 0.5rem;">
+          Your e-waste collection request has been saved and is currently scheduled for verification.
+        </p>
+
+        <div class="tracking-badge-box">
+          <div class="tracking-label">Your Unique Tracking Code</div>
+          <div class="tracking-number" id="successTrackingId">EW-2026-XXXX</div>
+        </div>
+
+        <p id="successSummaryText" style="font-size: 0.9rem; color: #334155; margin-bottom: 1.5rem;">
+          Collection scheduled for <strong id="successDate"></strong>.
+        </p>
+
+        <div style="display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap;">
+          <button class="btn btn-primary" onclick="switchTab('requests')">
+            📋 View in Requests Table
+          </button>
+          <button class="btn btn-secondary" onclick="resetFormForNew()">
+            ➕ Submit Another Request
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         SECTION 4: MANAGE REQUESTS TABLE (USER / ADMIN)
+         ======================================================== -->
+    <section id="section-requests" class="tab-section">
+      <div class="dashboard-header">
+        <div>
+          <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;">
+            <h2 id="requestsTitle">E-Waste Requests Repository</h2>
+            <span id="requestsRoleBadge" class="brand-tag" style="display: none;">My Requests</span>
+          </div>
+          <p id="requestsSubtitle" class="text-muted" style="font-size: 0.9rem; color: var(--text-muted);">
+            Manage, filter, search, update statuses, or delete requests with SQLite persistence.
+          </p>
+        </div>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <button class="btn btn-secondary btn-sm" onclick="loadRequests()">🔄 Refresh Table</button>
+          <button class="btn btn-primary btn-sm" onclick="switchTab('pickup')">➕ New Request</button>
+        </div>
+      </div>
+
+      <div class="table-panel">
+        <!-- Search & Filter Controls -->
+        <div class="filter-bar">
+          <div class="filter-inputs">
+            <div class="search-box-wrap">
+              <span class="search-icon">🔍</span>
+              <input type="text" id="searchInput" class="search-input" placeholder="Search by name, tracking ID, phone, item, city..." oninput="onSearchChange()">
+            </div>
+
+            <select id="statusFilter" class="filter-select" onchange="onFilterChange()">
+              <option value="all">All Statuses</option>
+              <option value="Pending">Pending</option>
+              <option value="Scheduled">Scheduled</option>
+              <option value="Collected">Collected</option>
+              <option value="Processed">Processed</option>
+            </select>
+
+            <select id="categoryFilter" class="filter-select" onchange="onFilterChange()">
+              <option value="all">All Categories</option>
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+
+          <div style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted);" id="tableCountBadge">
+            Showing 0 requests
+          </div>
+        </div>
+
+        <!-- Main Requests Table -->
+        <div class="table-responsive">
+          <table class="styled-table">
+            <thead>
+              <tr>
+                <th>Tracking ID</th>
+                <th>Customer & Contact</th>
+                <th>Item Details</th>
+                <th>Qty</th>
+                <th>Pickup Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="requestsTableBody">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Empty State Container -->
+        <div id="tableEmptyState" class="empty-state" style="display: none;">
+          <div class="empty-icon">📭</div>
+          <h3 id="emptyStateTitle">No Collection Requests Found</h3>
+          <p id="emptyStateText">No records match your selected filters or search query.</p>
+          <div style="display: flex; justify-content: center; gap: 0.75rem;">
+            <button class="btn btn-primary btn-sm" onclick="switchTab('pickup')">Create First Request</button>
+            <button class="btn btn-demo btn-sm" id="emptyStateDemoBtn" onclick="openDemoModal()">Load Demo Records</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         SECTION 5: ATTRACTIVE ECO LOGIN PAGE
+         ======================================================== -->
+    <section id="section-login" class="tab-section active">
+      <div class="login-wrapper">
+        <!-- Floating Eco Elements (CSS Animated) -->
+        <div class="eco-float eco-float-1">♻️</div>
+        <div class="eco-float eco-float-2">🌿</div>
+        <div class="eco-float eco-float-3">💻</div>
+        <div class="eco-float eco-float-4">🔋</div>
+
+        <div class="login-card">
+          <!-- Auth Mode Switcher -->
+          <div class="auth-tabs">
+            <button type="button" class="auth-tab-btn active" id="tabSignInBtn" onclick="switchAuthMode('signin')">
+              🔑 Sign In
+            </button>
+            <button type="button" class="auth-tab-btn" id="tabSignUpBtn" onclick="switchAuthMode('signup')">
+              🌱 Create Account
+            </button>
+          </div>
+
+          <div class="login-header">
+            <div class="login-icon-wrap">
+              <span id="authHeaderIcon">♻️</span>
+            </div>
+            <h2 id="authTitle">Sign In to EcoCycle</h2>
+            <p id="authSubtitle">Access your recycling dashboard or manage collections as administrator.</p>
+          </div>
+
+          <div id="loginAlertBox" class="login-alert" style="display: none;"></div>
+
+          <!-- 1. SIGN IN FORM -->
+          <form id="loginForm" onsubmit="handleLoginSubmit(event)">
+            <div class="form-group">
+              <label class="form-label" for="loginEmail">Email Address <span class="req">*</span></label>
+              <div class="input-icon-wrap">
+                <span class="input-icon">✉️</span>
+                <input type="email" id="loginEmail" class="form-input with-icon" placeholder="e.g. user@ewaste.com" required autocomplete="username">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="loginPassword">Password <span class="req">*</span></label>
+              <div class="input-icon-wrap password-wrap">
+                <span class="input-icon">🔒</span>
+                <input type="password" id="loginPassword" class="form-input with-icon" placeholder="Enter your password" required autocomplete="current-password">
+                <button type="button" class="btn-toggle-pwd" id="togglePwdBtn" onclick="togglePasswordVisibility('loginPassword', 'togglePwdBtn')" title="Show/Hide Password">
+                  👁️
+                </button>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block" id="loginSubmitBtn">
+              <span>🌿 Sign In to Portal</span>
+            </button>
+
+            <div class="auth-switch-prompt">
+              New to EcoCycle? <a onclick="switchAuthMode('signup')">Create a Resident Account</a>
+            </div>
+
+            <!-- Quick Demo Accounts Helper Box for College Presentations -->
+            <div class="demo-login-box">
+              <div class="demo-login-title">
+                <span>🎓</span> <strong>College Demo Accounts (1-Click Fill)</strong>
+              </div>
+              <p class="demo-login-desc">Select an account below to automatically fill credentials for your evaluation:</p>
+              <div class="demo-login-actions">
+                <button type="button" class="btn-demo-chip admin" onclick="quickFillCredentials('admin@ewaste.com', 'admin123')">
+                  🛡️ Admin Account (admin@ewaste.com)
+                </button>
+                <button type="button" class="btn-demo-chip user" onclick="quickFillCredentials('user@ewaste.com', 'user123')">
+                  👤 Resident User Account (user@ewaste.com)
+                </button>
+              </div>
+            </div>
+          </form>
+
+          <!-- 2. SIGN UP FORM -->
+          <form id="signupForm" style="display: none;" onsubmit="handleSignupSubmit(event)">
+            <div class="form-group">
+              <label class="form-label" for="signupFullName">Full Name <span class="req">*</span></label>
+              <div class="input-icon-wrap">
+                <span class="input-icon">👤</span>
+                <input type="text" id="signupFullName" class="form-input with-icon" placeholder="e.g. Priya Sharma" required minlength="2">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="signupEmail">Email Address <span class="req">*</span></label>
+              <div class="input-icon-wrap">
+                <span class="input-icon">✉️</span>
+                <input type="email" id="signupEmail" class="form-input with-icon" placeholder="e.g. priya@example.com" required autocomplete="email">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="signupPassword">Password (min 6 characters) <span class="req">*</span></label>
+              <div class="input-icon-wrap password-wrap">
+                <span class="input-icon">🔒</span>
+                <input type="password" id="signupPassword" class="form-input with-icon" placeholder="Create a secure password" required minlength="6" autocomplete="new-password">
+                <button type="button" class="btn-toggle-pwd" id="toggleSignupPwdBtn" onclick="togglePasswordVisibility('signupPassword', 'toggleSignupPwdBtn')" title="Show/Hide Password">
+                  👁️
+                </button>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block" id="signupSubmitBtn">
+              <span>🌱 Register Resident Account</span>
+            </button>
+
+            <div class="auth-switch-prompt">
+              Already have an account? <a onclick="switchAuthMode('signin')">Sign In here</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================
+       MODALS
+       ======================================================== -->
+
+  <!-- Request Details Modal -->
+  <div id="detailsModal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Request Details</h3>
+        <button class="modal-close-btn" onclick="closeModal('detailsModal')">&times;</button>
+      </div>
+      <div class="modal-body" id="detailsModalBody">
+        <!-- Rendered by JS -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('detailsModal')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div id="deleteModal" class="modal-overlay">
+    <div class="modal-card" style="max-width: 440px;">
+      <div class="modal-header">
+        <h3 style="color: #dc2626;">🗑️ Confirm Deletion</h3>
+        <button class="modal-close-btn" onclick="closeModal('deleteModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="margin-bottom: 0.75rem; color: #334155;">
+          Are you sure you want to permanently delete this collection request?
+        </p>
+        <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: var(--radius-sm); padding: 0.75rem; font-size: 0.875rem;">
+          <div><strong>Tracking ID:</strong> <span id="deleteTrackingId" class="tracking-code"></span></div>
+          <div><strong>Customer:</strong> <span id="deleteCustomerName"></span></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('deleteModal')">Cancel</button>
+        <button class="btn btn-danger" id="confirmDeleteBtn">Delete Request</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Demo Data Modal -->
+  <div id="demoModal" class="modal-overlay">
+    <div class="modal-card" style="max-width: 480px;">
+      <div class="modal-header">
+        <h3>⚡ College Demo Data Assistant</h3>
+        <button class="modal-close-btn" onclick="closeModal('demoModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="margin-bottom: 0.85rem; color: #334155; line-height: 1.5;">
+          This feature creates realistic sample e-waste collection records (laptops, phones, CRT TVs, lithium batteries) across different statuses so you can effortlessly present your dashboard and filters during college evaluation.
+        </p>
+        <div style="background: #f0fdf4; border: 1px solid #86efac; border-radius: var(--radius-sm); padding: 0.75rem; font-size: 0.85rem; color: #065f46; margin-bottom: 1rem;">
+          💡 <em>You can also reset and clear all data at any time with the reset button below.</em>
+        </div>
+      </div>
+      <div class="modal-footer" style="justify-content: space-between;">
+        <button class="btn btn-danger btn-sm" onclick="clearAllDemoData()">Clear All Data</button>
+        <div style="display: flex; gap: 0.5rem;">
+          <button class="btn btn-secondary btn-sm" onclick="closeModal('demoModal')">Cancel</button>
+          <button class="btn btn-primary btn-sm" onclick="seedDemoData()">Seed 5 Sample Requests</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="nav-container" style="justify-content: center; text-align: center;">
+      <p>© 2026 E-Waste Management System. College Project Minimum Viable Application.</p>
+    </div>
+  </footer>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

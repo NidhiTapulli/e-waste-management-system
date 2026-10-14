@@ -1,7 +1,42 @@
+# Python cache & bytecode
 __pycache__/
 *.py[cod]
+*$py.class
+
+# Virtual environments
 venv/
+.venv/
+env/
+backend/venv/
+
+# Environment files
 .env
+.env.*
+!.env.example
+
+# Pytest & Coverage
 .pytest_cache/
+.coverage
+htmlcov/
+
+# SQLite databases & temp files
+*.db
+*.sqlite
+*.sqlite3
+test_*.db
+backend/*.db
+
+# Node & frontend dependencies
 node_modules/
-dist/git status
+dist/
+build/
+
+# IDE & Editor caches
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+Thumbs.db
