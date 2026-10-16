@@ -1,0 +1,7 @@
+﻿global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: "ewaste-api"
+    static_configs:
+      - targets: ["ewaste-probe:9100"]
