@@ -1,0 +1,70 @@
+﻿E-WASTE MANAGEMENT SYSTEM
+DEVOPS MINI PROJECT REPORT
+
+Student Name: ______________________
+Class / Semester: ___________________
+Subject: DevOps
+
+1. ABSTRACT
+The E-Waste Management System is a web application for managing electronic waste collection requests. This project demonstrates DevOps practices such as version control, continuous integration, containerization, deployment, and monitoring.
+
+2. OBJECTIVES
+- Maintain source code using Git and GitHub.
+- Automate testing using GitHub Actions.
+- Package and run the backend using Docker.
+- Deploy the application using Render.
+- Monitor application health using Prometheus and Grafana.
+
+3. TECHNOLOGIES USED
+- Python and FastAPI: Backend API
+- SQLite: Database
+- Git and GitHub: Version control
+- GitHub Actions: Continuous integration
+- pytest: Automated testing
+- Docker: Containerization
+- Render: Deployment
+- Prometheus: Metrics collection
+- Grafana: Monitoring dashboard
+
+4. IMPLEMENTATION
+The backend is located in the backend directory. The main application files include main.py, crud.py, database.py, and schemas.py.
+
+The GitHub Actions workflow is stored in .github/workflows/ci.yml. It installs dependencies and runs the backend test suite.
+
+The Dockerfile packages the backend and starts the FastAPI application using Uvicorn. The application was also deployed to Render.
+
+5. MONITORING
+The monitoring directory contains probe.py, Dockerfile, prometheus.yml, and blackbox.yml.
+
+The custom Python probe checks whether the local EWaste API responds with the expected message. It exposes the ewaste_api_up metric. A successful metrics request returned ewaste_api_up 1.
+
+Prometheus collects this metric, and Grafana displays it using a Stat visualization.
+
+6. TESTING
+Backend tests are executed with:
+.\venv\Scripts\python.exe -m pytest .\tests\ -v
+
+Record the actual test count and result after running the tests. Attach evidence of the successful GitHub Actions workflow.
+
+7. EVIDENCE TO ATTACH
+- Docker container running
+- Render application responding successfully
+- GitHub Actions workflow success
+- Backend test results
+- Prometheus target showing UP
+- Grafana dashboard showing ewaste_api_up = 1
+
+8. CONCLUSION
+This project demonstrates an introductory DevOps workflow by combining source control, automated testing, Docker containerization, application deployment, and monitoring. These practices help make application delivery more repeatable and easier to validate.
+
+9. FINAL CHECKLIST
+[ ] Latest source code pushed to the correct GitHub repository
+[ ] GitHub Actions workflow successful
+[ ] Backend tests passed
+[ ] Docker container running
+[ ] Render endpoint verified
+[ ] Prometheus target UP
+[ ] Grafana dashboard saved
+[ ] Screenshots attached
+[ ] Repository and deployment URLs included
+[ ] No passwords or secrets included
